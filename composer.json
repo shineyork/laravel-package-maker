@@ -1,0 +1,22 @@
+{
+    "name": "shineyork\/laravel-package-maker",
+    "description": "a composer laravel package maker",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "shineyork",
+            "email": "shineyork@sixstaredu.com"
+        }
+    ],
+    "require": {
+        "symfony/console": "^3.0|^4.0",
+        "symfony/process": "^3.0|^4.0",
+        "symfony/filesystem": "^3.0|^4.0"
+    },
+    "bin": ["bin/laravel-package-maker"],
+    "autoload": {
+        "psr-4": {
+            "ShineYork\\LaravelPackageMaker\\": "src"
+        }
+    }
+}
