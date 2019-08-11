@@ -197,18 +197,38 @@ class BuildCommand extends Command
 
         $file = [
             '/Config/config.php' => 'Config/config.php',
-            '/Http/Controllers/Controller.php' => 'Http/Controllers/Controller.php',
             '/Http/routes.php' => 'Http/routes.php',
-            '/Providers/LaravelServiceProviders.php' => 'Providers/'.$this->laravel['PROVIDER_NAME'].'.php'
         ];
 
         foreach ($file as $key => $value) {
             $this->copyFile($key, $value);
         }
 
+        $class = [
+            '/Http/Controllers/Controller.stub' =>[
+                '/Http/Controllers/Controller.php','Controller'
+            ],
+            '/Providers/LaravelServiceProviders.stub' => [
+                '/Providers/'.$this->laravel['PROVIDER_NAME'].'.php',$this->laravel['PROVIDER_NAME']
+            ]
+        ];
+
+        foreach ($class as $key => $value) {
+              $this->buildClass($key, $value[0], $value[1]);
+        }
         $this->copyReadmeFile($config);
 
         return $this->packageDirectory;
+    }
+
+    public function buildClass($file, $path,  $className = null)
+    {
+        // var_dump( file_get_contents($this->stubsDirectory.$file));
+        $class = str_replace(['{%className%}', '{%namespace%}'], [
+            $className,
+            $this->info['NAMESPACE'],
+        ], file_get_contents($this->stubsDirectory.$file));
+        file_put_contents($this->packageDirectory.$path, $class);
     }
 
     public function setNamespace(array $config)

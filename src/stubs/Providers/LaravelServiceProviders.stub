@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Providers;
+namespace {%namespace%}\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
-class AppServiceProvider extends ServiceProvider
+class {%className%} extends ServiceProvider
 {
     public function register()
     {
